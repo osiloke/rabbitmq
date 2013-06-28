@@ -109,7 +109,7 @@ action :set_permissions do
   perm_list = new_resource.permissions.split
   unless user_has_permissions?(new_resource.user, new_resource.vhost, perm_list)
     vhostOpt = "-p #{new_resource.vhost}" unless new_resource.vhost.nil?
-    cmdStr = "rabbitmqctl set_permissions #{vhostOpt} #{new_resource.user} \"#{perm_list.join("\" \"")}\""
+    cmdStr = "rabbitmqctl set_permissions #{vhostOpt} #{new_resource.user} #{perm_list.join("\" \"")}"
     execute cmdStr do
       Chef::Log.debug "rabbitmq_user_set_permissions: #{cmdStr}"
       Chef::Log.info "Setting RabbitMQ user permissions for '#{new_resource.user}' on vhost #{new_resource.vhost}."
